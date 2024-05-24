@@ -20,7 +20,7 @@ const validate = (req, res, next) => {
 };
 
 // 전체 도서 조회
-// 카테고리별 도서 목록 조회
+// 카테고리별 도서 목록 조회 + 신간(한달 이내) 도서 목록 조회)
 router.get("/", selectBooks);
 
 // 개별 도서 조회
