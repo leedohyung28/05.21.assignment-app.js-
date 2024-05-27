@@ -7,7 +7,7 @@ router.use(express.json());
 const {
   selectBooks,
   selectSingleBook,
-} = require("../controllers/BooksControllers");
+} = require("../controllers/BooksController");
 
 const validate = (req, res, next) => {
   const err = validationResult(req);
