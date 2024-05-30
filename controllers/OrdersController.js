@@ -1,7 +1,17 @@
-const conn = require("../mariadb");
+// const conn = require("../mariadb");
+const mariadb = require("mysql2/promise");
+
 const { StatusCodes } = require("http-status-codes");
 
-const payment = (req, res) => {
+const payment = async (req, res) => {
+  const conn = await mariadb.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "root",
+    database: "buybybooks",
+    dateStrings: true,
+  });
+
   const {
     items,
     delivery,
@@ -18,33 +28,26 @@ const payment = (req, res) => {
             VALUES (?, ?, ?)`;
   let values = [delivery.address, delivery.receiver, delivery.contact];
 
-  //   conn.query(sql, values, function (err, results) {
-  //     if (err) {
-  //       return res.status(StatusCodes.BAD_REQUEST).end();
-  //     }
+  let [results] = await conn.query(sql, values);
+  console.log(results);
 
-  //     delivery_id = results.insertId;
+  delivery_id = results.insertId;
+  sql = `INSERT INTO orders (book_title, total_quantity, total_price, reader_id, delivery_id)
+      VALUES(?, ?, ?, ?, ?)`;
+  values = [
+    representiveBookTitle,
+    total_quantity,
+    total_price,
+    reader_id,
+    delivery_id,
+  ];
 
-  //     sql = `INSERT INTO orders (book_title, total_quantity, total_price, reader_id, delivery_id)
-  //     VALUES(?, ?, ?, ?, ?)`;
-  //     values = [
-  //       representiveBookTitle,
-  //       total_quantity,
-  //       total_price,
-  //       reader_id,
-  //       delivery_id,
-  //     ];
+  conn.query(sql, values, function (err, results) {
+    if (err) {
+      return res.status(StatusCodes.BAD_REQUEST).end();
+    }
+  });
 
-  //     conn.query(sql, values, function (err, results) {
-  //       if (err) {
-  //         return res.status(StatusCodes.BAD_REQUEST).end();
-  //       }
-
-  //       res.status(StatusCodes.CREATED).json(results);
-  //     });
-
-  //     res.status(StatusCodes.CREATED).json(results);
-  //   });
   order_id = 1;
 
   sql = `INSERT INTO orderedBook (order_id, book_id, quantity)
