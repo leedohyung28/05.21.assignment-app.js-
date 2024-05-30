@@ -9,8 +9,8 @@ router.use(express.json());
 
 const {
   payment,
-  selectAllOrders,
-  selectDetailOrders,
+  getAllOrders,
+  getDetailOrders,
 } = require("../controllers/OrdersController");
 
 const validate = (req, res, next) => {
@@ -23,8 +23,8 @@ const validate = (req, res, next) => {
   }
 };
 
-router.route("/").post(payment).get(selectAllOrders);
+router.route("/").post(payment).get(getAllOrders);
 
-router.get("/:orderId", selectDetailOrders);
+router.get("/:orderId", getDetailOrders);
 
 module.exports = router;
