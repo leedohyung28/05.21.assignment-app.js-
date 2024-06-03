@@ -34,10 +34,6 @@ router
         .notEmpty()
         .isInt()
         .withMessage("주문 수량이 필요합니다."),
-      body("reader_id")
-        .notEmpty()
-        .isInt()
-        .withMessage("사용자 ID가 필요합니다."),
       validate,
     ],
     addCartItems
@@ -57,10 +53,6 @@ router
   // 장바구니에서 선택한 주문 예상 상품 목록 조회
   .get(
     [
-      body("reader_id")
-        .notEmpty()
-        .isInt()
-        .withMessage("사용자 ID가 필요합니다."),
       body("checked_items")
         .notEmpty()
         .isArray()

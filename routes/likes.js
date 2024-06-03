@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const conn = require("../mariadb");
 const dotenv = require("dotenv");
 const { body, param, validationResult } = require("express-validator");
 dotenv.config();
