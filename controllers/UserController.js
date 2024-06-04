@@ -21,7 +21,10 @@ const register = (req, res) => {
     if (err) {
       return res.status(StatusCodes.BAD_REQUEST).end();
     }
-    res.status(StatusCodes.CREATED).json(results);
+
+    if (results.affectedRows)
+      return res.status(StatusCodes.CREATED).json(results);
+    else return res.status(StatusCodes.BAD_REQUEST).end();
   });
 };
 

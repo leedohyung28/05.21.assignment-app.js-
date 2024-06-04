@@ -1,6 +1,6 @@
 const conn = require("../mariadb");
 const { StatusCodes } = require("http-status-codes");
-const jwt = require("jsonwebtoken");
+const ensureAuthorization = require("../auth");
 
 const addLike = (req, res) => {
   let { book_id } = req.params;
@@ -37,12 +37,4 @@ const removeLike = (req, res) => {
     }
   });
 };
-
-function ensureAuthorization(req) {
-  let receivedJwt = req.headers["authorization"];
-  let decodedJwt = jwt.verify(receivedJwt, process.env.PRIVATE_KEY);
-
-  return decodedJwt;
-}
-
 module.exports = { addLike, removeLike };

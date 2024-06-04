@@ -27,7 +27,6 @@ router.get("/", selectBooks);
 router.get(
   "/:book_id",
   [
-    body("reader_id").notEmpty().withMessage("사용자 ID가 필요합니다."),
     param("book_id").notEmpty().isInt().withMessage("책 ID가 필요합니다."),
     validate,
   ],
