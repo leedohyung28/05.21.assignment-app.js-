@@ -1,12 +1,12 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { ILogItem } from "../../../types";
 import { BsFillPersonFill } from "react-icons/bs";
 import { author, date, logItemWrap, message } from "./LogItem.css";
 
-type TLogItemProps = [logItem: ILogItem];
+type TLogItemProps = { logItem: ILogItem };
 
 const LogItem: FC<TLogItemProps> = ({ logItem }) => {
-  let timeOffSet = new Date(Date.now() - Number(logItem.logTimestamp));
+  const timeOffSet = new Date(Date.now() - Number(logItem.logTimestamp));
 
   const showOffsetTime = `
   ${timeOffSet.getMinutes() > 0 ? `${timeOffSet.getMinutes()}m` : ""}
