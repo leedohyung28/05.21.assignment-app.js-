@@ -4,6 +4,7 @@ import { getImgSrc } from "../../utils/image";
 import { formatNumber } from "../../utils/format";
 import { FaHeart } from "react-icons/fa";
 import { ViewMode } from "./BooksViewSwitcher";
+import { Link } from "react-router-dom";
 
 interface Props {
   book: Book;
@@ -12,8 +13,8 @@ interface Props {
 
 function BookItem({ book, view }: Props) {
   return (
-    <>
-      <BookItemStyle view={view}>
+    <BookItemStyle view={view}>
+      <Link to={`/book/${book.id}`}>
         <div className="img">
           <img src={getImgSrc(book.id)} alt={book.title} />
         </div>
@@ -27,8 +28,8 @@ function BookItem({ book, view }: Props) {
             <span>{book.likes}</span>
           </div>
         </div>
-      </BookItemStyle>
-    </>
+      </Link>
+    </BookItemStyle>
   );
 }
 
